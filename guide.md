@@ -40,3 +40,23 @@ getent hosts ceph-4
 sudo apt update
 sudo apt install -y curl gnupg lsb-release chrony lvm2 podman openssh-server
 ```
+
+Enable Services
+```
+sudo systemctl enable --now chrony
+sudo systemctl enable --now ssh
+```
+
+Verify
+```
+systemctl is-active chrony
+systemctl is-active ssh
+timedatectl
+
+Result
+active
+active
+System clock synchronized: yes
+NTP service: active
+```
+
