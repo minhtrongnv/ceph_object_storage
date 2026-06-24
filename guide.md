@@ -34,3 +34,9 @@ getent hosts ceph-2
 getent hosts ceph-3
 getent hosts ceph-4
 ```
+
+### 3. Install base packages
+```
+sudo apt update
+sudo apt install -y curl gnupg lsb-release chrony lvm2 podman openssh-server
+```
