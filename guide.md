@@ -26,3 +26,11 @@ sudo tee /etc/hosts >/dev/null <<'EOF'
 192.168.136.203 ceph-4
 EOF
 ```
+
+Verify
+```
+getent hosts ceph-1
+getent hosts ceph-2
+getent hosts ceph-3
+getent hosts ceph-4
+```
