@@ -17,22 +17,24 @@ sudo ufw status
 
 ### 2. Add host for each Ceph node
 ```
-sudo tee /etc/hosts >/dev/null <<'EOF'
-127.0.0.1 localhost
+sudo sed -i '/# BEGIN RUSTFS HOSTS/,/# END RUSTFS HOSTS/d' /etc/hosts
 
-192.168.136.200 ceph-1
-192.168.136.201 ceph-2
-192.168.136.202 ceph-3
-192.168.136.203 ceph-4
+sudo tee -a /etc/hosts >/dev/null <<'EOF'
+# BEGIN RUSTFS HOSTS
+192.168.136.200 ceph-1 rustfs1
+192.168.136.201 ceph-2 rustfs2
+192.168.136.202 ceph-3 rustfs3
+192.168.136.203 ceph-4 rustfs4
+# END RUSTFS HOSTS
 EOF
 ```
 
 Verify
 ```
-getent hosts ceph-1
-getent hosts ceph-2
-getent hosts ceph-3
-getent hosts ceph-4
+getent hosts rustfs1
+getent hosts rustfs2
+getent hosts rustfs3
+getent hosts rustfs4
 ```
 
 ### 3. Install base packages
@@ -59,4 +61,44 @@ active
 System clock synchronized: yes
 NTP service: active
 ```
+
+### 4. Install cephadm on Node1
+```
+sudo apt update
+sudo apt install -y cephadm
+sudo cephadm add-repo --release squid
+sudo cephadm install
+sudo cephadm install ceph-common
+```
+
+Verify
+```
+which cephadm
+cephadm version
+ceph -v
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
